@@ -10,7 +10,7 @@ export default (req, res) =>
 			if (err)
 				return res.status(400).json(err);
 			const docs_api = google.docs('v1');
-			const doc = await docs_api.documents.get({documentId: '1LzYyacj3OdSYAJHh9LeQYWujn7cZ-4SSXRFZLP_Lgvo', auth: client});
+			const doc = await docs_api.documents.get({documentId: process.env.DOCUMENT_ID, auth: client});
 			const bullets = doc.data.body.content.filter(el => !!el.paragraph?.bullet).map(el => el.paragraph);
 			const randomBullet = bullets[Math.floor(Math.random() * bullets.length)];
 			return res.status(400).send(randomBullet.elements[0].textRun.content);
